@@ -1,0 +1,24 @@
+name "Auto fusion"
+
+-- # Power
+every 20 ticks do
+    input fe:: from power_cube bottom side
+    output fe:: to injector each side
+    output fe:: to injector each side
+    output fe:: to injector each side
+    output fe:: to injector each side
+    output fe:: to injector each side
+    output fe:: to injector each side
+end
+
+-- # Items
+every 20 ticks do
+    input from item_input slots 1-26
+    output retain 1 to each injector
+forget
+    input from item_input slots 0
+    output to core
+forget
+    input from core
+    output to recipe_providor
+end
