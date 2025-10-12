@@ -1,0 +1,13 @@
+{
+    "type": "create:pressing",
+    "ingredients": [
+        {
+            "item": "create_ironworks:charcoal_dust"
+        }
+    ],
+    "results": [
+        {
+            "item": "createnuclear:graphene"
+        }
+    ]
+}
