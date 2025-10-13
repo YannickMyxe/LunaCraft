@@ -22,13 +22,18 @@ enum Commands {
     },
 }
 
-pub fn run(cli: Cli) -> std::io::Result<()> {
+pub fn run(cli: Cli) -> Result<(), String> {
     match &cli.command {
         Commands::Patch { directory } => {
-            let dir_files = read_dir(directory)?;
+            let dir_files = read_dir(directory).map_err(|_| "Failed to read directory")?;
+            let files_vec: Vec<_> = dir_files.collect::<Result<Vec<_>, _>>().map_err(|_| "Failed to read files")?;
+            if files_vec.is_empty() {
+                eprintln!("No files found in directory: {}", directory);
+                return Err(String::from("Directory is empty"));
+            }
             let mut files: Vec<String> = Vec::new();
-            for result in dir_files {
-                let file = result.expect("Cannot read file").path();
+            for entry in files_vec {
+                let file = entry.path();
                 if let Some(name) = file.file_name() {
                     if !file.is_dir() {
                         files.push(name.to_string_lossy().to_string());
