@@ -5,7 +5,7 @@
  -[_] beautifiedchatclient-1.20.1-2.7.jar.disabled
  -[_] beautifiedchatserver-1.20.1-2.7.jar.disabled
 
-## Mod Files'
+## Mod Files
 
  -[x] AdvancedAE-1.2.7-1.20.1.jar
  -[x] AdvancedPeripherals-1.20.1-0.7.46r.jar
