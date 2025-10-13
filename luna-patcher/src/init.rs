@@ -1,4 +1,4 @@
-use std::{fs, io::Write, os::windows::io::{AsHandle, AsRawHandle}};
+use std::{fs::{self, OpenOptions}, io::Write};
 
 pub fn init(files: Vec<String>, output: String) {
     println!("Patching files...");
@@ -29,20 +29,22 @@ fn print(disabled: &Vec<String>, mods: &Vec<String>, output: String) {
 
     let output = dir.to_owned() + "/" + &output.clone();
 
-    let _ = std::fs::File::create(output.clone())
-        .expect("Failed to create output file");
+    let mut data_file = OpenOptions::new()
+        .append(true)
+        .open(output.clone())
+        .expect("cannot open file");
 
-    fs::write(output.clone(), "# Lunala Patcher \n").expect("Failed to write Header to file");
+    write!(&mut data_file, "# Lunala Patcher \n").expect("Failed to write Header to file");
 
     if !disabled.is_empty() {
         for file_name in disabled {
-            fs::write(&output, format!(" -[_] {}\n", file_name))
+            write!(&mut data_file, "{}", format!(" -[_] {}\n", file_name))
                 .expect("Failed to write to file, failed to add disabled files");
         }
     }
     if !mods.is_empty() {
         for file_name in mods {
-            fs::write(&output, format!(" -[x] {}\n", file_name))
+            write!(&mut data_file, "{}", format!(" -[x] {}\n", file_name))
                 .expect("Failed to write to file, failed to add mod files");
         }
     }
