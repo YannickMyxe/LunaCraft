@@ -6,5 +6,5 @@ mod patch;
 fn main() {
     let args = commands::Cli::parse();
     println!("Luna Patcher");
-    commands::run(args);
+    let _ = commands::run(args);
 }

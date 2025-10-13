@@ -1,4 +1,4 @@
-use std::{fs::read_dir, path::Path};
+use std::{fs::read_dir};
 
 use clap::Parser;
 
