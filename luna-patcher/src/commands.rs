@@ -25,19 +25,17 @@ enum Commands {
 pub fn run(cli: Cli) -> std::io::Result<()> {
     match &cli.command {
         Commands::Patch { directory } => {
-            let files = read_dir(directory)?; //.expect("Cannot read file directory");
-            for x in files {
-                let file = x.expect("Cannot read file").path();
-
+            let dir_files = read_dir(directory)?;
+            let mut files: Vec<String> = Vec::new();
+            for result in dir_files {
+                let file = result.expect("Cannot read file").path();
                 if let Some(name) = file.file_name() {
-                    if file.is_dir() {
-                        println!("Directory: {}", name.to_string_lossy());
-                    } else {
-                        println!("File: {}", name.to_string_lossy());
+                    if !file.is_dir() {
+                        files.push(name.to_string_lossy().to_string());
                     }
                 }
             }
-            patch::patch();
+            patch::patch(files);
         },
     };
     Ok(())
