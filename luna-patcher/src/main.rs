@@ -1,7 +1,7 @@
 use clap::Parser;
 
 mod commands;
-mod patch;
+mod init;
 
 fn main() {
     let args = commands::Cli::parse();

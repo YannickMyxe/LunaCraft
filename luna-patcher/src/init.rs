@@ -1,4 +1,5 @@
-pub fn patch(files: Vec<String>) {
+
+pub fn init(files: Vec<String>, output: Option<String>) {
     println!("Patching files...");
 
     let mut disabled = Vec::new();
@@ -12,10 +13,14 @@ pub fn patch(files: Vec<String>) {
         }
     }
 
-    print(&disabled, &mods);
+    print(&disabled, &mods, output);
 }
 
-fn print(disabled: &Vec<String>, mods: &Vec<String>) {
+fn print(disabled: &Vec<String>, mods: &Vec<String>, output: Option<String>) {
+    
+    let file = std::fs::File::create(output.unwrap_or("changes.md".to_string()));
+    println!("Output file: {:?}", file);
+
     if !disabled.is_empty() {
         println!("Disabled files");
         println!("==============");

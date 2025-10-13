@@ -2,7 +2,7 @@ use std::{fs::read_dir};
 
 use clap::Parser;
 
-use crate::patch;
+use crate::init;
 
 /// Luna Patcher CLI
 #[derive(Parser)]
@@ -16,15 +16,19 @@ pub struct Cli {
 #[derive(clap::Subcommand)]
 enum Commands {
     /// Collect changes and create patch notes
-    Patch {
+    Init {
         #[arg(value_name = "DIRECTORY")]
         directory: String,
+
+        /// Optional output file
+        #[arg(short, long, value_name = "OUTPUT")]
+        output: Option<String>,
     },
 }
 
 pub fn run(cli: Cli) -> Result<(), String> {
     match &cli.command {
-        Commands::Patch { directory } => {
+        Commands::Init { directory, output } => {
             let dir_files = read_dir(directory).map_err(|_| "Failed to read directory")?;
             let files_vec: Vec<_> = dir_files.collect::<Result<Vec<_>, _>>().map_err(|_| "Failed to read files")?;
             if files_vec.is_empty() {
@@ -40,7 +44,7 @@ pub fn run(cli: Cli) -> Result<(), String> {
                     }
                 }
             }
-            patch::patch(files);
+            init::init(files, output.clone());
         },
     };
     Ok(())
