@@ -18,7 +18,20 @@ pub fn init(files: Vec<String>, output: String) {
 }
 
 fn print(disabled: &Vec<String>, mods: &Vec<String>, output: String) {
-    let _ = std::fs::File::create(output.clone()).expect("Failed to create output file");
+    let dir = "./patches";
+
+    if !fs::metadata(&dir).is_ok() {
+        fs::DirBuilder::new()
+            .recursive(false)
+            .create(&dir)
+            .expect("Failed to create directory");
+    }
+
+    let output = dir.to_owned() + "/" + &output.clone();
+
+    let _ = std::fs::File::create(output.clone())
+        .expect("Failed to create output file");
+
     fs::write(output.clone(), "# Lunala Patcher \n").expect("Failed to write Header to file");
 
     if !disabled.is_empty() {
@@ -29,8 +42,8 @@ fn print(disabled: &Vec<String>, mods: &Vec<String>, output: String) {
     }
     if !mods.is_empty() {
         for file_name in mods {
-                       fs::write(&output, format!(" -[x] {}\n", file_name))
-                            .expect("Failed to write to file, failed to add mod files");
+            fs::write(&output, format!(" -[x] {}\n", file_name))
+                .expect("Failed to write to file, failed to add mod files");
         }
     }
 }
