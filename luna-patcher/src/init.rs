@@ -37,12 +37,14 @@ fn print(disabled: &Vec<String>, mods: &Vec<String>, output: String) {
     write!(&mut data_file, "# Lunala Patcher \n").expect("Failed to write Header to file");
 
     if !disabled.is_empty() {
+        write!(&mut data_file, "\n## Optional Files\n").expect("Failed to write section header to file");
         for file_name in disabled {
             write!(&mut data_file, "{}", format!(" -[_] {}\n", file_name))
                 .expect("Failed to write to file, failed to add disabled files");
         }
     }
     if !mods.is_empty() {
+        write!(&mut data_file, "\n## Mod Files\n").expect("Failed to write section header to file");
         for file_name in mods {
             write!(&mut data_file, "{}", format!(" -[x] {}\n", file_name))
                 .expect("Failed to write to file, failed to add mod files");
