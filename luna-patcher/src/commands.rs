@@ -44,7 +44,7 @@ pub fn run(cli: Cli) -> Result<(), String> {
                     }
                 }
             }
-            init::init(files, output.clone());
+            init::init(files, output.clone().unwrap_or("init.md".to_string()));
         },
     };
     Ok(())

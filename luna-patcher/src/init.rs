@@ -1,5 +1,6 @@
+use std::{fs, io::Write, os::windows::io::{AsHandle, AsRawHandle}};
 
-pub fn init(files: Vec<String>, output: Option<String>) {
+pub fn init(files: Vec<String>, output: String) {
     println!("Patching files...");
 
     let mut disabled = Vec::new();
@@ -16,23 +17,20 @@ pub fn init(files: Vec<String>, output: Option<String>) {
     print(&disabled, &mods, output);
 }
 
-fn print(disabled: &Vec<String>, mods: &Vec<String>, output: Option<String>) {
-    
-    let file = std::fs::File::create(output.unwrap_or("changes.md".to_string()));
-    println!("Output file: {:?}", file);
+fn print(disabled: &Vec<String>, mods: &Vec<String>, output: String) {
+    let _ = std::fs::File::create(output.clone()).expect("Failed to create output file");
+    fs::write(output.clone(), "# Lunala Patcher \n").expect("Failed to write Header to file");
 
     if !disabled.is_empty() {
-        println!("Disabled files");
-        println!("==============");
-        for file in disabled {
-            println!(" -[_] {}", file);
+        for file_name in disabled {
+            fs::write(&output, format!(" -[_] {}\n", file_name))
+                .expect("Failed to write to file, failed to add disabled files");
         }
     }
     if !mods.is_empty() {
-        println!("Mod files");
-        println!("=========");
-        for file in mods {
-            println!(" -[x] {}", file);
+        for file_name in mods {
+                       fs::write(&output, format!(" -[x] {}\n", file_name))
+                            .expect("Failed to write to file, failed to add mod files");
         }
     }
 }
