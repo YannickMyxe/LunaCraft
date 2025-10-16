@@ -2,7 +2,7 @@ use std::{fs::read_dir, path::{PathBuf}, str::FromStr};
 
 use clap::Parser;
 
-use crate::init;
+use crate::{config, init};
 
 /// Luna Patcher CLI
 #[derive(Parser)]
@@ -67,7 +67,10 @@ pub fn run(cli: Cli, config: &str) -> Result<(), String> {
             );
             if !config.exists() {
                 eprintln!("{} does not exist", config.to_str().unwrap());
+                Err(String::from("Config file does not exist"))?;
             }
+
+            config::create(config.to_str().unwrap());
         }
     };
     Ok(())

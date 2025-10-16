@@ -1,9 +1,11 @@
-use std::{fs::{self, OpenOptions}, io::Write, path::PathBuf, str::FromStr};
+use std::{fs::{self, OpenOptions}, io::Write};
+
+use crate::config;
 
 pub fn init(config_file: &str, files: Vec<String>, output: String) {
     println!("Patching files...");
 
-    config(config_file);
+    config::create(config_file);
 
     let mut disabled = Vec::new();
     let mut mods = Vec::new();
@@ -17,15 +19,6 @@ pub fn init(config_file: &str, files: Vec<String>, output: String) {
     }
 
     print(&disabled, &mods, output);
-}
-
-fn config(config: &str) {
-    let config = PathBuf::from_str(&config).unwrap();
-    if !config.exists() {
-        eprintln!("Creating config {}", config.to_str().unwrap());
-        fs::File::create(&config).expect("Failed to create config file");
-    }
-
 }
 
 fn print(disabled: &Vec<String>, mods: &Vec<String>, output: String) {
