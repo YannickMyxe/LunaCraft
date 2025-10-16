@@ -9,3 +9,9 @@ pub fn create(file_path: &str) {
         fs::File::create(&config).expect("Failed to create config file");
     }
 }
+
+
+pub fn exists(file_path: &str) -> bool {
+    let config = PathBuf::from_str(&file_path).expect("Failed to parse config path");
+    config.exists()
+}

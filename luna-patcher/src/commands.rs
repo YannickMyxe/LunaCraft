@@ -28,12 +28,7 @@ enum Commands {
         output: Option<String>,
     },
     Patch {
-        #[arg(value_name = "DIRECTORY")]
-        directory: String,
 
-        /// Optional output file
-        #[arg(short, long, value_name = "OUTPUT")]
-        output: Option<String>,
     },
 }
 
@@ -59,18 +54,12 @@ pub fn run(cli: Cli, config: &str) -> Result<(), String> {
             }
             init::init(config, files, output.clone().unwrap_or("init.md".to_string()));
         }
-        Commands::Patch { directory, output } => {
-            let config = PathBuf::from_str(&config).unwrap();
-            println!(
-                "Patching directory: {} with config: {:?}",
-                directory, config
-            );
-            if !config.exists() {
-                eprintln!("{} does not exist", config.to_str().unwrap());
-                Err(String::from("Config file does not exist"))?;
+        Commands::Patch { } => {
+            if config::exists(config) {
+                println!("Patching using config: {}", config);
+            } else {
+                return Err(format!("Config file does not exist: {}", config));
             }
-
-            config::create(config.to_str().unwrap());
         }
     };
     Ok(())
