@@ -2,11 +2,12 @@ use std::{fs::{self, OpenOptions}, io::Write};
 
 use crate::config;
 
-pub fn init(config_file: &str, files: Vec<String>, output: String) {
+pub fn init(config_file: &str, files: Vec<String>, output: String) -> Result<(), Box<dyn std::error::Error>> {
     println!("Patching files...");
 
-    config::create_file(config_file);
-
+    config::create_file(config_file)?;
+    println!("Config file created: {}", config_file);
+    
     let mut disabled = Vec::new();
     let mut mods = Vec::new();
 
@@ -18,10 +19,10 @@ pub fn init(config_file: &str, files: Vec<String>, output: String) {
         }
     }
 
-    print(&disabled, &mods, output);
+    print(&disabled, &mods, output)
 }
 
-fn print(disabled: &Vec<String>, mods: &Vec<String>, output: String) {
+fn print(disabled: &Vec<String>, mods: &Vec<String>, output: String) -> Result<(), Box<dyn std::error::Error>> {
     let dir = "./patches";
 
     if !fs::metadata(&dir).is_ok() {
@@ -56,4 +57,6 @@ fn print(disabled: &Vec<String>, mods: &Vec<String>, output: String) {
                 .expect("Failed to write to file, failed to add mod files");
         }
     }
+
+    Ok(())
 }

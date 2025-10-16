@@ -52,7 +52,10 @@ pub fn run(cli: Cli, config: &str) -> Result<(), String> {
                     }
                 }
             }
-            init::init(config, files, output.clone().unwrap_or("init.md".to_string()));
+            match init::init(config, files, output.clone().unwrap_or("init.md".to_string())) {
+                Ok(_) => (),
+                Err(e) => return Err(format!("Initialization failed: {}", e)),
+            }
         }
         Commands::Patch { } => {
             if !config::exists(config) {
