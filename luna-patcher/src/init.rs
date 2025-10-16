@@ -5,7 +5,7 @@ use crate::config;
 pub fn init(config_file: &str, files: Vec<String>, output: String) {
     println!("Patching files...");
 
-    config::create(config_file);
+    config::create_file(config_file);
 
     let mut disabled = Vec::new();
     let mut mods = Vec::new();

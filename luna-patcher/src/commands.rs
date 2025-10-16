@@ -1,4 +1,4 @@
-use std::{fs::read_dir, path::{PathBuf}, str::FromStr};
+use std::fs::read_dir;
 
 use clap::Parser;
 
@@ -55,11 +55,11 @@ pub fn run(cli: Cli, config: &str) -> Result<(), String> {
             init::init(config, files, output.clone().unwrap_or("init.md".to_string()));
         }
         Commands::Patch { } => {
-            if config::exists(config) {
-                println!("Patching using config: {}", config);
-            } else {
+            if !config::exists(config) {
                 return Err(format!("Config file does not exist: {}", config));
             }
+            
+            crate::patch::patch();
         }
     };
     Ok(())
