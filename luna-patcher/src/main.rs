@@ -5,6 +5,5 @@ mod init;
 
 fn main() {
     let args = commands::Cli::parse();
-    println!("Luna Patcher");
-    let _ = commands::run(args);
+    let _ = commands::run(args, "./lunaconfig.toml");
 }

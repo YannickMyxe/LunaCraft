@@ -74,6 +74,8 @@
  -[x] dungeons-and-taverns-ancient-city-overhaul-1.jar
  -[x] dungeons-and-taverns-pillager-outpost-rework-1.1.jar
  -[x] dynamic-fps-3.9.5+minecraft-1.20.0-forge.jar
+ -[x] easy-piglins-forge-1.20.1-1.1.0.jar
+ -[x] easy-villagers-forge-1.20.1-1.1.35.jar
  -[x] embeddium-0.3.31+mc1.20.1.jar
  -[x] energymeter-forge-1.20.1-1.0.0.jar
  -[x] entityculling-forge-1.9.0-mc1.20.1.jar
@@ -89,6 +91,7 @@
  -[x] geckolib-forge-1.20.1-4.8.2.jar
  -[x] Glodium-1.20-1.5-forge.jar
  -[x] GPUTape-1.18x-1.21x-1.0.5.1.jar
+ -[x] gravestone-forge-1.20.1-1.0.35.jar
  -[x] guideme-20.1.13.jar
  -[x] idas_forge-1.10.3+1.20.1.jar
  -[x] ImmediatelyFast-Forge-1.5.2+1.20.4.jar
