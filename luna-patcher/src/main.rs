@@ -4,6 +4,7 @@ mod commands;
 mod init;
 mod config;
 mod patch;
+mod files;
 
 fn main() {
     let args = commands::Cli::parse();
