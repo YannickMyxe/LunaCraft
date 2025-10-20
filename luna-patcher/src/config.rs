@@ -26,6 +26,14 @@ fn init_config(file_path: &str) {
         [patches]
         intitFile = DEFAULT_INIT_FILE
         patchesDir = DEFAULT_PATCHES_DIR
+
+        [pack]
+        version = "1.0.0"
+        packName = ""
+        author = ""
+        
+        [mods]
+        directory = ""
     };
     let mut file = OpenOptions::new()
         .write(true)
