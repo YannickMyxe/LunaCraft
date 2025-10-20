@@ -15,7 +15,7 @@ pub fn init(config_file: &str, files: Vec<String>, output: String) -> Result<(),
         match file.split(".").last() {
             Some("disabled") => disabled.push(file.clone()),
             Some(_) => mods.push(file.clone()),
-            None => eprintln!(" - Unknown file type: {}", file.clone()),
+            None => eprintln!("Unsupported file type for file: {}", file.clone()),
         }
     }
 
