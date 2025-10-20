@@ -1,3 +1,11 @@
+[mods]
+directory = ""
+
+[pack]
+author = ""
+packName = ""
+version = "1.0.0"
+
 [patches]
 intitFile = "init.md"
 patchesDir = "patches"
