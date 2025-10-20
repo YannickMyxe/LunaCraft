@@ -8,5 +8,9 @@ mod files;
 
 fn main() {
     let args = commands::Cli::parse();
-    let _ = commands::run(args, "./lunaconfig.toml");
+    let result = commands::run(args, "./lunaconfig.toml");
+    match result {
+        Ok(_) => (),
+        Err(e) => eprintln!("Error: {}", e),
+    }
 }

@@ -1,9 +1,8 @@
-use std::{fs::{self, OpenOptions}, io::Write};
 
 use crate::{config, files};
 
 pub fn init(config_file: &str, files: Vec<String>, output: String) -> Result<(), Box<dyn std::error::Error>> {
-    println!("Patching files...");
+    println!("Creating initial file");
 
     config::create_file(config_file)?;
     println!("Config file created: {}", config_file);

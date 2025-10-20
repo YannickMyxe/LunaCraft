@@ -37,5 +37,7 @@ pub fn init(disabled: &Vec<String>, mods: &Vec<String>, output: String) -> Resul
         }
     }
 
+    println!("Initialization file created at: {}", output);
+
     Ok(())
 }

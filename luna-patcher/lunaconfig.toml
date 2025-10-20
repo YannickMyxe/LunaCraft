@@ -1,0 +1,3 @@
+[patches]
+intitFile = "init.md"
+patchesDir = "patches"
